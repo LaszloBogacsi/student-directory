@@ -28,9 +28,11 @@ end
 
 def prints(students)
   students.each_with_index do |student, index| #use each_with_index
-    if student[:name].index(@first_letter) == 0 # print only the names starting with a specific letter
-      indexplusone = index + 1 # so the list starts from 1 not from 0.
-      puts "#{indexplusone}. #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name].length <= 12
+      if student[:name].index(@first_letter) == 0 # print only the names starting with a specific letter
+        indexplusone = index + 1 # so the list starts from 1 not from 0.
+        puts "#{indexplusone}. #{student[:name]} (#{student[:cohort]} cohort)"
+      end
     end
   end
 end
