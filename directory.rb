@@ -6,9 +6,9 @@ def input_students
   #create an empty array
   students = []
   #get the first name
-  name = gets.chomp
+  name = gets.delete "\n"
   puts "Please enter the cohort month"
-  cohort = gets.chomp
+  cohort = gets.delete "\n"
   #default_cohort = "December".to_sym
   #while the name is not empty, repeat this code
   while !name.empty? do
