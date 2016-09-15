@@ -27,6 +27,20 @@ def print_header
 end
 
 def prints(students)
+  list_length = students.count #length of the student list
+  i = 0 # loop counter
+  while i < list_length #loop while the counter is less than the length of the list
+    if students[i][:name].length <= 12
+     if students[i][:name].upcase.index(@first_letter) == 0 # print only the names starting with a specific letter
+        indexplusone = i + 1 # so the list starts from 1 not from 0.
+        puts "#{indexplusone}. #{students[i][:name]} (#{students[i][:cohort]} cohort)"
+     end
+    end
+    i = i+ 1 #increment the counter
+  end
+end
+=begin
+def prints(students)
   students.each_with_index do |student, index| #use each_with_index
     if student[:name].length <= 12
       if student[:name].index(@first_letter) == 0 # print only the names starting with a specific letter
@@ -36,6 +50,7 @@ def prints(students)
     end
   end
 end
+=end
 
 def print_footer(students)
 #We print out the total number of students
