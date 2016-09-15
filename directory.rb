@@ -33,7 +33,7 @@ def prints(students)
     if students[i][:name].length <= 12
      if students[i][:name].upcase.index(@first_letter) == 0 # print only the names starting with a specific letter
         indexplusone = i + 1 # so the list starts from 1 not from 0.
-        puts "#{indexplusone}. #{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobbies]}, height: #{students[i][:height]}"
+        puts "#{indexplusone}. #{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobbies]}, height: #{students[i][:height]}".center(80)
      end
     end
     i = i+ 1 #increment the counter
