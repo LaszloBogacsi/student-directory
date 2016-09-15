@@ -7,6 +7,7 @@ def input_students
   students = []
   #get the first name
   name = gets.delete "\n"
+  if name != ""
   puts "Please enter the cohort month"
   cohort = gets.delete "\n"
   #default_cohort = "December".to_sym
@@ -26,6 +27,10 @@ def input_students
     #get another name from the user
     name = gets.chomp
     cohort = gets.chomp
+  end
+else
+  puts "No user input"
+  exit
   end
   #return the array of students
   students
