@@ -10,7 +10,7 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-      students << {name: name, cohort: :november}
+      students << {name: name, cohort: :november, hobbies: :fishing, height: :'6ft'}
     puts "Now we have #{students.count} students"
     
     #get another name from the user
@@ -33,7 +33,7 @@ def prints(students)
     if students[i][:name].length <= 12
      if students[i][:name].upcase.index(@first_letter) == 0 # print only the names starting with a specific letter
         indexplusone = i + 1 # so the list starts from 1 not from 0.
-        puts "#{indexplusone}. #{students[i][:name]} (#{students[i][:cohort]} cohort)"
+        puts "#{indexplusone}. #{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobbies]}, height: #{students[i][:height]}"
      end
     end
     i = i+ 1 #increment the counter
