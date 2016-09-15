@@ -18,8 +18,11 @@ def input_students
     if cohort.empty?
       students[students.count - 1][:cohort] = "December" # if the cohort is empty the default value will be december
     end
-    puts "Now we have #{students.count} students"
-    
+    if students.count == 1
+      puts "Now we have 1 student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     #get another name from the user
     name = gets.chomp
     cohort = gets.chomp
@@ -34,6 +37,8 @@ def print_header
 end
 
 def prints(students)
+  #cohort_filter = "January"
+  #students_filtered = students.map {|cohort|  }
   list_length = students.count #length of the student list
   i = 0 # loop counter
   while i < list_length #loop while the counter is less than the length of the list
@@ -61,8 +66,13 @@ end
 
 def print_footer(students)
 #We print out the total number of students
+if students.count == 1
+  print "Overall, we have 1 student"
+else
 print "Overall, we have #{students.count} great students"
 end
+end
+
 
 #nothing happens until we call the methods
 students = input_students
