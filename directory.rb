@@ -1,21 +1,10 @@
 #Let's put all students into an array
 @first_letter = 'D' # we only take names starting with this letter
 @students = []
-students_list = [  #hardcoded list only to test the filtering method
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :january},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :december},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :january},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :december},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :january},  
-  {name: "Norman Bates", cohort: :november}
-]
+@filname = ""
 
 def input_students
+  puts "option 1 selected."
   puts "please enter the name of the students"
   puts "To finish, just hit enter twice."
   #get the first name
@@ -36,7 +25,9 @@ def input_students
       puts "Now we have #{@students.count} students"
     end
     #get another name from the user
+    puts "please enter the next student"
     name = STDIN.gets.chomp
+    puts "plese specify the students' cohort"
     cohort = STDIN.gets.chomp
   end
   else
@@ -103,6 +94,7 @@ def print_menu
 end
 
 def show_students
+  puts "option 2 selected"
    #show the students
         print_header
         print_student_list
@@ -117,9 +109,11 @@ def process(selection)
       when "2"
         show_students
       when "3"
+        filename_ask
         save_students
       when "4"
-        load_students
+        filename_ask
+        load_students(@filename)
       when "9"
         exit #this will cause the program to terminate  
       else
@@ -128,36 +122,41 @@ def process(selection)
     end
 
 def save_students
+  puts "option 3 selected"
+  puts "saving the students list"
   #open the file for writing
-  file = File.open("students.csv", "w")
+  puts @filename
+  File.open(@filename, "w") {|file|
   #iterate over the array of students
   @students.each do |student|
   student_data = [student[:name], student[:cohort]]
   csv_line = student_data.join(",")
   file.puts csv_line
-  end
-  file.close
+  end}
+  puts "students saved to #{@filename}"
 end
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+
+def load_students(filename)
+  puts "option 4 selected"
+  puts "loading students from file..."
+  File.open(@filename, "r"){|file|
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
   hashto_students(name, cohort)
-  end
-  file.close
+  end}
+  puts "loading #{@filename} complete."
 end
 
 def try_load_students
   filename = ARGV.first #first argument from the command line
-  puts ARGV.inspect
   if filename.nil?
-    load_students("students.csv")
+   puts "no filename specified, loading default list."
+   load_students(@filename = "students.csv")
     return
   end
-  puts "hello"
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+    puts "Loaded #{filename.count} from #{filename}"
   else
     puts "Sorry #{filename} doesn't exits."
     exit # if filename doesn't exists quit the program
@@ -167,6 +166,12 @@ end
 def hashto_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 
+end
+
+def filename_ask
+puts "Please define a filename with .csv extention."
+input = gets.chomp
+@filename = input
 end
 
 try_load_students
