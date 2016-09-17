@@ -19,10 +19,10 @@ def input_students
   puts "please enter the name of the students"
   puts "To finish, just hit enter twice."
   #get the first name
-  name = gets.delete "\n"
+  name = STDIN.gets.delete "\n"
   if name != ""
   puts "Please enter the cohort month"
-  cohort = gets.delete "\n"
+  cohort = STDIN.gets.delete "\n"
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
@@ -37,8 +37,8 @@ def input_students
       puts "Now we have #{@students.count} students"
     end
     #get another name from the user
-    name = gets.chomp
-    cohort = gets.chomp
+    name = STDIN.gets.chomp
+    cohort = STDIN.gets.chomp
   end
   else
     puts "No user input"
@@ -90,7 +90,7 @@ end
 def interactive_menu
   loop do  
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
     end
 end
 
@@ -140,8 +140,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
   @students << {name: name, cohort: cohort.to_sym}
@@ -149,5 +149,18 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first #first argument from the command line
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filname}"
+  else
+    puts "Sorry #{filename} doesn't exits."
+    exit # if filename doesn't exists quit the program
+  end
+end
+
+
+
 interactive_menu
-#filtered_cohort #this will show the cohort filtered list
