@@ -98,7 +98,7 @@ def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
     puts "3. Save the list to students.csv"
-    puts "4. Load the list from studnts.csv"
+    puts "4. Load the list from students.csv"
     puts "9. Exit"
 end
 
@@ -138,7 +138,6 @@ def save_students
   end
   file.close
 end
-
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
@@ -150,10 +149,15 @@ end
 
 def try_load_students
   filename = ARGV.first #first argument from the command line
-  return if filename.nil?
+  puts ARGV.inspect
+  if filename.nil?
+    load_students("students.csv")
+    return
+  end
+  puts "hello"
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filname}"
+    puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry #{filename} doesn't exits."
     exit # if filename doesn't exists quit the program
@@ -165,5 +169,5 @@ def hashto_students(name, cohort)
 
 end
 
-
+try_load_students
 interactive_menu
