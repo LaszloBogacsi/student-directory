@@ -1,5 +1,19 @@
 #Let's put all students into an array
 @first_letter = 'D' # we only take names starting with this letter
+students = [  #hardcoded list only to test the filtering method
+  {name: "Dr. Hannibal Lecter", cohort: :november},
+  {name: "Darth Vader", cohort: :january},
+  {name: "Nurse Ratched", cohort: :november},
+  {name: "Michael Corleone", cohort: :december},
+  {name: "Alex DeLarge", cohort: :november},
+  {name: "The Wicked Witch of the West", cohort: :january},
+  {name: "Terminator", cohort: :november},
+  {name: "Freddy Krueger", cohort: :december},
+  {name: "The Joker", cohort: :november},
+  {name: "Joffrey Baratheon", cohort: :january},  
+  {name: "Norman Bates", cohort: :november}
+]
+
 def input_students
   puts "please enter the name of the students"
   puts "To finish, just hit enter twice."
@@ -10,7 +24,6 @@ def input_students
   if name != ""
   puts "Please enter the cohort month"
   cohort = gets.delete "\n"
-  #default_cohort = "December".to_sym
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
@@ -28,11 +41,11 @@ def input_students
     name = gets.chomp
     cohort = gets.chomp
   end
-else
-  puts "No user input"
-  exit
+  else
+    puts "No user input"
+    exit
   end
-  #return the array of students
+      #return the array of students
   students
 end
 
@@ -41,9 +54,18 @@ def print_header
   puts "-----------"
 end
 
+def filtered_cohort(students)
+ puts "Type the cohort filter"
+ cohort_filter = gets.chomp.downcase
+  students.map do |cohort| 
+    if cohort[:cohort] == cohort_filter.to_sym
+        puts "Name: #{cohort[:name]} Cohort: #{cohort[:cohort]}"
+    end
+  end
+end
+
 def prints(students)
-  #cohort_filter = "January"
-  #students_filtered = students.map {|cohort|  }
+  
   list_length = students.count #length of the student list
   i = 0 # loop counter
   while i < list_length #loop while the counter is less than the length of the list
@@ -56,32 +78,21 @@ def prints(students)
     i = i+ 1 #increment the counter
   end
 end
-=begin
-def prints(students)
-  students.each_with_index do |student, index| #use each_with_index
-    if student[:name].length <= 12
-      if student[:name].index(@first_letter) == 0 # print only the names starting with a specific letter
-        indexplusone = index + 1 # so the list starts from 1 not from 0.
-        puts "#{indexplusone}. #{student[:name]} (#{student[:cohort]} cohort)"
-      end
-    end
-  end
-end
-=end
 
 def print_footer(students)
-#We print out the total number of students
-if students.count == 1
-  print "Overall, we have 1 student"
-else
-print "Overall, we have #{students.count} great students"
-end
+  #We print out the total number of students
+  if students.count == 1
+    print "Overall, we have 1 student"
+  else
+    print "Overall, we have #{students.count} great students"
+  end
 end
 
 
 #nothing happens until we call the methods
-students = input_students
+#students = input_students #to test this I'm usig the hardcoded list of students instead of the user input method 
 
 print_header
-prints(students)
+filtered_cohort(students) #print out the cohort filtered list
+#prints(students) 
 print_footer(students)
