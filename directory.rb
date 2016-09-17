@@ -26,8 +26,7 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-      
-      @students << {name: name, cohort: cohort}
+      hashto_students(name, cohort)
     if cohort.empty?
       @students[@students.count - 1][:cohort] = "December" # if the cohort is empty the default value will be december
     end
@@ -144,7 +143,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
-  @students << {name: name, cohort: cohort.to_sym}
+  hashto_students(name, cohort)
   end
   file.close
 end
@@ -161,6 +160,10 @@ def try_load_students
   end
 end
 
+def hashto_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+
+end
 
 
 interactive_menu
