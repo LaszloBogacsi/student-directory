@@ -1,6 +1,6 @@
 #Let's put all students into an array
 @first_letter = 'D' # we only take names starting with this letter
-students = [  #hardcoded list only to test the filtering method
+students_list = [  #hardcoded list only to test the filtering method
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :january},
   {name: "Nurse Ratched", cohort: :november},
@@ -54,7 +54,7 @@ def print_header
   puts "-----------"
 end
 
-def filtered_cohort(students)
+def filtered_cohort(students_list)
  puts "Type the cohort filter"
  cohort_filter = gets.chomp.downcase
   students.map do |cohort| 
@@ -83,16 +83,54 @@ def print_footer(students)
   #We print out the total number of students
   if students.count == 1
     print "Overall, we have 1 student"
+    puts ""
   else
     print "Overall, we have #{students.count} great students"
+    puts""
   end
 end
 
+def interactive_menu
+  students = []
+  loop do
+    
+    #print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    
+    #read the input and save it into a variable
+    selection = gets.chomp
+    
+    #do what the user asked
+    case selection
+      when "1"
+        #input the students
+        students = input_students
+        
+      when "2"
+        #show the students
+        print_header
+        prints(students)
+        print_footer(students)
+      when "9"
+        exit #this will cause the program to terminate  
+      else
+        puts "I don't know what you ment, try again"
+      end
+    end
+    
+end
+
+
+
 
 #nothing happens until we call the methods
-#students = input_students #to test this I'm usig the hardcoded list of students instead of the user input method 
 
-print_header
-filtered_cohort(students) #print out the cohort filtered list
+interactive_menu
+#students = input_students #to test the filter I'm usig the hardcoded list of students instead of the user input method 
+
+#print_header
+#filtered_cohort(students) #print out the cohort filtered list
 #prints(students) 
-print_footer(students)
+#print_footer(students)
