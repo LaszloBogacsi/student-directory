@@ -1,3 +1,5 @@
+
+
 #Let's put all students into an array
 @first_letter = 'D' # we only take names starting with this letter
 @students = []
@@ -173,5 +175,7 @@ input = gets.chomp
 @filename = input
 end
 
+
+$><<IO.read($0)
 try_load_students
 interactive_menu
