@@ -1,0 +1,1 @@
+puts File.read(__FILE__) #reads (FIle.read()) the file from the filename(__FILE__) and prints (puts) to the standard output.
