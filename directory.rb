@@ -3,6 +3,8 @@
 @students = []
 @filname = ""
 
+require 'csv'
+
 def input_students
   puts "option 1 selected."
   puts "please enter the name of the students"
@@ -125,25 +127,22 @@ def save_students
   puts "option 3 selected"
   puts "saving the students list"
   #open the file for writing
-  puts @filename
-  File.open(@filename, "w") {|file|
-  #iterate over the array of students
-  @students.each do |student|
-  student_data = [student[:name], student[:cohort]]
-  csv_line = student_data.join(",")
-  file.puts csv_line
-  end}
+  CSV.open(@filename, "wb") do |csv|
+    @students.each do |student|
+    csv << [student[:name], student[:cohort]]
+  end
+end
   puts "students saved to #{@filename}"
 end
 
 def load_students(filename)
   puts "option 4 selected"
   puts "loading students from file..."
-  File.open(@filename, "r"){|file|
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
+  CSV.foreach(@filename) do |row|
+  name, cohort = row
   hashto_students(name, cohort)
-  end}
+  end
+  
   puts "loading #{@filename} complete."
 end
 
